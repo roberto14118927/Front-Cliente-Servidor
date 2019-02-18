@@ -1,0 +1,28 @@
+<form [formGroup]="formLogin" >
+    <div class="row">
+        <label for="" class="type-font">Login</label>
+         <br>
+        <div class="form-group">
+          <input formControlName="username" type="text" placeholder="username" >
+          <div *ngIf="submited && f.username.errors">
+            <div *ngIf="f.username.errors.required">
+              Requiere username
+            </div>
+
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <input type="password" formControlName="password" placeholder="password" >
+          <div *ngIf="submited && f.password.errors">
+              <div *ngIf="f.password.errors.required">
+                <label for="" class="msj">Requiere password</label>
+              </div>
+  
+            </div>
+        </div>
+
+        <br>
+        <button type="submit" (click)="sendLogin()">Login</button>
+      </div>
+</form>
