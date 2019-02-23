@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnDestroy, OnInit {
   formLogin: FormGroup;
   submited = false;
+  datas: any = [];
   constructor(private formBuilder: FormBuilder, private api: ApiService) {
     this.formLogin = this.formBuilder.group({
       username: ['', Validators.required],
@@ -19,24 +20,25 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.getLogin()
+    
   }
 
   getLogin() {
     this.api.login(this.formLogin.value).subscribe(
       response => {
-        console.log(response)
+        // console.log(response.data)
+        this.datas = response.data;
+        localStorage.setItem('token', this.datas.token)
       }
     )
   }
 
   sendLogin() {
     this.submited = true;
-    if(this.formLogin.invalid){
+    if (this.formLogin.invalid) {
       return;
     }
-    this.submited = false;
-    console.log(this.formLogin.value.username + "--" + this.formLogin.value.password)
+    this.getLogin()
   }
 
   ngOnDestroy(): void {
