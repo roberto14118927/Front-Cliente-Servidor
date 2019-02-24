@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from 'src/Services/api.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,25 +13,47 @@ export class LoginComponent implements OnDestroy, OnInit {
   formLogin: FormGroup;
   submited = false;
   datas: any = [];
-  constructor(private formBuilder: FormBuilder, private api: ApiService) {
+  constructor(private formBuilder: FormBuilder, private api: ApiService, private router: Router, ) {
     this.formLogin = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     })
+    if (api.isAuthenticated()) {
+      this.router.navigate(['gps/unidades']);
+    } else {
+      this.router.navigate(['']);
+    }
   }
 
   ngOnInit() {
-    
+    localStorage.removeItem('token');
   }
 
-  getLogin() {
+  getLogin(): void {
     this.api.login(this.formLogin.value).subscribe(
       response => {
         // console.log(response.data)
         this.datas = response.data;
-        localStorage.setItem('token', this.datas.token)
+        // localStorage.setItem('token', this.datas.token)
       }
     )
+
+    this.api.login(this.formLogin.value).subscribe(response => {
+      if (response.token) {
+        console.log(response)
+        // let school = response.data[0].school[0];
+        // delete response.data[0].school;
+        let user = Object.assign({ token: response.token });
+        localStorage.setItem('user', JSON.stringify(user));
+        this.router.navigateByUrl('gps/unidades');
+      } else {
+        // if(response.message.email) this.toastr.warning(response.message.email);
+        // else this.toastr.warning(response.message);
+      }
+    }, error => {
+      // this.toastr.error(error);
+      console.log(error)
+    });
   }
 
   sendLogin() {

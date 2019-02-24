@@ -22,10 +22,20 @@ export class ApiService {
   login(params: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content_Type': 'applications/json',
+        'Content-Type': 'application/json',
       })
     }
-    return this.http.post(`${this.api}login/`,{params}, httpOptions)
+    return this.http.post(`${this.api}login/`, params, httpOptions)
+  }
+
+  isAuthenticated(): boolean {
+    let user = JSON.parse(localStorage.getItem('user'));
+    console.log(user)
+    if (user) {
+      return user['token'] ? true : false;
+    } else {
+      return false;
+    }
   }
 
 }

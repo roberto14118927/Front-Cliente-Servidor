@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormProfileComponent } from './components/dashboard/form-profile/form-profile.component';
@@ -15,6 +15,10 @@ import { UnidadesComponent } from './components/views/unidades/unidades.componen
 import { EquiposComponent } from './components/views/equipos/equipos.component';
 import { RealUnidadesComponent } from './components/realTime/real-unidades/real-unidades.component';
 import { NotPageComponent } from './components/not-page/not-page.component';
+
+// import { JwtInterceptorService } from './services/jwt-interceptor/jwt-interceptor.service';
+import { AuthGuard } from './auth.guard';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +40,19 @@ import { NotPageComponent } from './components/not-page/not-page.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: JwtInterceptorService,
+    //   multi: true
+    // },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: ErrorInterceptorService,
+    //   multi: true
+    // }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -10,11 +10,14 @@ import { EquiposComponent } from './components/views/equipos/equipos.component';
 import { RealUnidadesComponent } from './components/realTime/real-unidades/real-unidades.component';
 import { NotPageComponent } from './components/not-page/not-page.component';
 import { FormControl } from '@angular/forms';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
+    // canActivate: [AuthGuard], 
     children: [
       { path: 'profile', component: FormProfileComponent },
       { path: 'unidades', component: FormUnidadesComponent },
@@ -31,8 +34,9 @@ const routes: Routes = [
   },
   {
     path: 'gps',
+    // canActivate: [AuthGuard], 
     children: [
-      { path: 'unidades', component: RealUnidadesComponent },
+      { path: 'unidades', canActivate: [AuthGuard], component: RealUnidadesComponent },
     ]
   },
   { path: '**', component: NotPageComponent }

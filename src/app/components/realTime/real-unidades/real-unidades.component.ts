@@ -10,6 +10,7 @@ export class RealUnidadesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // localStorage.removeItem('user');
   }
 
 }
