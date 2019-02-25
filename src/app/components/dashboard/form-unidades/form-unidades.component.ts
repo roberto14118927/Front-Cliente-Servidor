@@ -10,6 +10,7 @@ export class FormUnidadesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    localStorage.removeItem('user');
   }
 
 }

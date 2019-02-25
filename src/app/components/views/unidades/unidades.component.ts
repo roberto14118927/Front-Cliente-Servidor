@@ -10,6 +10,7 @@ export class UnidadesComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    localStorage.removeItem('user');
   }
 
 }
