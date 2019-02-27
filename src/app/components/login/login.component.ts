@@ -44,7 +44,7 @@ export class LoginComponent implements OnDestroy, OnInit {
         // let school = response.data[0].school[0];
         // delete response.data[0].school;
         let user = Object.assign({ token: response.token });
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user_data', JSON.stringify(user));
         this.router.navigateByUrl('gps/unidades');
       } else {
         // if(response.message.email) this.toastr.warning(response.message.email);

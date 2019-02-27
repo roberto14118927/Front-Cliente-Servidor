@@ -29,7 +29,7 @@ export class ApiService {
   }
 
   isAuthenticated(): boolean {
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(localStorage.getItem('user_data'));
     console.log(user)
     if (user) {
       return user['token'] ? true : false;
