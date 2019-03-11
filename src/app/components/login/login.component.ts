@@ -26,7 +26,7 @@ export class LoginComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    localStorage.removeItem('token');
+    // localStorage.removeItem('token');
   }
 
   getLogin(): void {

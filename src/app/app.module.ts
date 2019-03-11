@@ -15,9 +15,15 @@ import { UnidadesComponent } from './components/views/unidades/unidades.componen
 import { EquiposComponent } from './components/views/equipos/equipos.component';
 import { RealUnidadesComponent } from './components/realTime/real-unidades/real-unidades.component';
 import { NotPageComponent } from './components/not-page/not-page.component';
-
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // import { JwtInterceptorService } from './services/jwt-interceptor/jwt-interceptor.service';
 import { AuthGuard } from './auth.guard';
+import { environment } from 'src/environments/environment.prod';
+
+const config : SocketIoConfig = {
+  url: environment.wsUrl, options: {}
+};
+
 
 
 @NgModule({
@@ -39,6 +45,7 @@ import { AuthGuard } from './auth.guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     AuthGuard,
